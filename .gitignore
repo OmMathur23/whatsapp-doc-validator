@@ -1,0 +1,10 @@
+venv310/
+venv/
+pycache/
+*.so
+backend/models/
+venv310/
+venv/
+pycache/
+*.so
+backend/models/

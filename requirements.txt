@@ -1,0 +1,24 @@
+asgiref==3.9.1
+certifi==2025.6.15
+charset-normalizer==3.4.2
+Django==5.2.4
+djangorestframework==3.16.0
+gunicorn
+idna==3.10
+psycopg2-binary
+requests==2.32.4
+sqlparse==0.5.3
+urllib3==2.5.0
+whitenoise
+
+# Flask-based OCR backend
+Flask==3.0.3
+
+# OCR libraries
+pytesseract==0.3.10
+opencv-python==4.9.0.80
+
+
+# For .env support
+python-dotenv==1.0.1
+
