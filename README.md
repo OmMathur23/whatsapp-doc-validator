@@ -1,109 +1,88 @@
-WhatsApp Document Validator 🧾📲
+# WhatsApp Document Validator 📄📲
 
-A full-stack WhatsApp-based document verification system built using Django, Flask, and PaddleOCR.
+A WhatsApp-integrated document validation system that leverages OCR to verify official documents like PAN cards, Aadhaar cards, passports, and signatures. Built using Django, Flask, PaddleOCR, and WhatsApp Cloud API.
 
-Users can send a document (PAN or Aadhaar) via WhatsApp and receive real-time validation responses — all powered by backend OCR processing.
+---
 
-📸 Demo Video: (Add your YouTube/GIF/demo link here)
+## 🚀 Features
 
-🚀 Live Deployment: (Add your Render/URL if deployed)
+- WhatsApp chatbot interface for users
+- OCR-based validation for:
+  - PAN Card
+  - Aadhaar Card
+  - Passport
+  - Signature detection
+- PDF/Image to text extraction using PaddleOCR and EasyOCR
+- REST API endpoints for backend validation
+- Media handling and WhatsApp webhook integration
+- Deployment-ready with Render support
 
-📂 Project Structure
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend/Chat Interface**: WhatsApp Cloud API
+- **Backend**:
+  - Flask (for OCR APIs)
+  - PaddleOCR, EasyOCR, OpenCV, PyTesseract
+- **Integration**: Django project to interface WhatsApp with Flask
+- **Other**: Postman for testing, Render deployment, `.env` support
+
+---
+
+## 📂 Project Structure
 
 whatsapp-doc-validator/
-├── backend/ ← Flask OCR API for PAN & Aadhaar validation
-│ ├── app.py ← API endpoints (/api/validate/pan, /aadhar)
-│ ├── validators/ ← PAN and Aadhaar validation logic
-│ ├── ocr_utils.py ← OCR & image preprocessing utilities
-│ └── models/ ← (Local OCR models used by PaddleOCR)
-│
-├── whatsapp/ ← Django WhatsApp webhook handler
-│ ├── webhook_views.py ← Message flow, button handling, media routing
-│ ├── utils.py ← WhatsApp API interaction functions
-│ └── urls.py ← Routes to /webhook/
-│
-├── whatsapp_api_project/ ← Django project settings
-│ ├── settings.py
-│ └── urls.py
-│
-├── manage.py ← Django entry point
-├── requirements.txt ← Required packages
-├── .env ← Environment variables (not committed)
+├── backend/ # Flask OCR backend
+│ ├── validators/ # PAN, Aadhaar validators
+│ ├── ocr_utils.py # OCR utilities (preprocess, convert, run_ocr)
+│ └── app.py # Main Flask app
+├── whatsapp/ # WhatsApp integration logic
+│ └── utils.py # WhatsApp messaging, media handling
+├── whatsapp_api_project/ # Django project
+│ └── webhook_views.py # WhatsApp webhook handling
+├── manage.py
+├── requirements.txt
+├── .env
 └── .gitignore
 
-💡 Features
+---
 
-    WhatsApp Business API integration
+## 🔄 Flow Overview
 
-    Interactive button-based flow:
+1. **User sends "hi" on WhatsApp**
+2. **Bot responds with document type buttons**
+3. **User selects document type**
+4. **Bot prompts file upload**
+5. **Media is downloaded and forwarded to Flask backend**
+6. **OCR runs validation and returns result**
+7. **Bot replies with validation output**
 
-        "Which document do you want to verify?"
+---
 
-        Options: PAN or Aadhaar
+## 🧪 API Endpoints (Flask)
 
-        After upload, backend verifies the document via OCR
+- `POST /api/validate/pan`
+- `POST /api/validate/aadhar`
+- `POST /api/validate/passport`
+- [Multipart file upload required; tested via Postman]
 
-    PAN/Aadhaar detection & validation using PaddleOCR
+---
 
-    Flask API for document parsing
+## ⚙️ Setup Instructions
 
-    Seamless Django <-> Flask communication
+### 1. Clone the Repo
 
-    Handles images and PDFs from WhatsApp
-
-⚙️ Setup Instructions
-
-    Clone the repository:
-
+```bash
 git clone https://github.com/OmMathur23/whatsapp-doc-validator.git
 cd whatsapp-doc-validator
 
-    Set up virtual environments:
+### 2. Create .env file
+```
+BACKEND_URL=http://127.0.0.1:5000
+WHATSAPP_TOKEN=your_whatsapp_token
+VERIFY_TOKEN=your_verify_token
 
-python3.10 -m venv venv310
-source venv310/bin/activate
+### 3. Install Dependencies 
+```
 pip install -r requirements.txt
-
-Note: PaddleOCR models are stored locally in backend/models/ to avoid large downloads.
-
-    Configure your environment variables in .env:
-
-WHATSAPP_ACCESS_TOKEN=your_long_token
-WHATSAPP_PHONE_NUMBER_ID=your_number_id
-WHATSAPP_API_VERSION=v16.0
-
-    Start Flask OCR API:
-
-cd backend
-python app.py
-
-    Start Django server:
-
-cd ..
-python manage.py runserver 0.0.0.0:8000
-
-🧪 Testing Locally
-
-    Use Postman to simulate webhook POST requests to http://localhost:8000/webhook/.
-
-    To test the full WhatsApp flow, you must:
-
-        Configure your webhook in Meta Developer Console
-
-        Use a tool like ngrok or Render to expose your Django endpoint
-
-🧠 Future Enhancements
-
-    Add support for other documents (Passport, DL, etc)
-
-    Automatic language detection in OCR
-
-    AI-based fraud detection using signature/morphing analysis
-
-    Integration with document databases or CRMs
-
-🧑‍💻 Author
-
-Om Mathur (@OmMathur23)
-
-Made with ❤️ and PaddleOCR.
