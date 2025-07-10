@@ -76,13 +76,13 @@ whatsapp-doc-validator/
 ```bash
 git clone https://github.com/OmMathur23/whatsapp-doc-validator.git
 cd whatsapp-doc-validator
-
+```
 ### 2. Create .env file
 ```
 BACKEND_URL=http://127.0.0.1:5000
 WHATSAPP_TOKEN=your_whatsapp_token
 VERIFY_TOKEN=your_verify_token
-
+```
 ### 3. Install Dependencies 
 ```
 pip install -r requirements.txt
